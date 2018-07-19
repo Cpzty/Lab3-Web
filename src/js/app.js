@@ -8,7 +8,6 @@ const solicitud = fetch('https://raw.githubusercontent.com/samuelchvez/todos-fak
 });
 
 
-console.log(count);
 const block = document.createElement('div');
 block.className = "block";
 root.appendChild(block);
