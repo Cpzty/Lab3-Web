@@ -42,6 +42,7 @@ const input = document.createElement('input');
 const submit = document.createElement('button');
 const mybloque = document.createElement('div');
 mybloque.innerHTML = "<id ='hola'/>"
+let allactivo =1;
 
 const state = {
   tarea:['completado','activo']
@@ -90,6 +91,9 @@ const render = ({tarea}) =>{
       anewblock.classList.add('completado');
       console.log('activo:' +anewblock.classList.contains('activo'));
       console.log('completado:' +anewblock.classList.contains('completado'));
+       if(allactivo!=1){
+        anewblock.classList.add('hide');
+      }
     }
     
     else if(anewblock.classList.contains('completado')){
@@ -97,6 +101,9 @@ const render = ({tarea}) =>{
       anewblock.classList.add('activo');
       console.log('activo:' +anewblock.classList.contains('activo'));
       console.log('completado:' +anewblock.classList.contains('completado'));
+       if(allactivo!=1){
+        anewblock.classList.add('hide');
+      }
     }     
          
   }
@@ -113,18 +120,25 @@ for(let i =0; i<allblocks.length; i++){
       allblocks[i].classList.add('activo');
       console.log('activo:' +allblocks[i].classList.contains('activo'));
       console.log('completado:' +allblocks[i].classList.contains('completado'));
+      if(allactivo!=1){
+        allblocks[i].classList.add('hide')
+      }
     }
     else if(allblocks[i].classList.contains('activo')){
       allblocks[i].classList.remove('activo');
       allblocks[i].classList.add('completado');
       console.log('activo:' +allblocks[i].classList.contains('activo'));
       console.log('completado:' +allblocks[i].classList.contains('completado'));
+      if(allactivo!=1){
+        allblocks[i].classList.add('hide')
+      }
     }
     
   }
 };
   
 completedbtn.onclick = () => {
+  allactivo=0;
   for(let i =0; i<allblocks.length; i++){
     if(allblocks[i].classList.contains('activo')){
      allblocks[i].classList.add('hide');
@@ -137,10 +151,12 @@ completedbtn.onclick = () => {
 alltaskbtn.onclick = () => {
   for(let i =0; i<allblocks.length; i++){
    allblocks[i].classList.remove('hide');
+   allactivo =1;
   }
 };
 
 activebtn.onclick = () => {
+  allactivo=0;
   for(let i =0; i<allblocks.length; i++){
     if(allblocks[i].classList.contains('completado')){
      allblocks[i].classList.add('hide');
@@ -164,6 +180,9 @@ window.addEventListener('keyup', function(e){
       anewblock.classList.add('completado');
       console.log('activo:' +anewblock.classList.contains('activo'));
       console.log('completado:' +anewblock.classList.contains('completado'));
+      if(allactivo!=1){
+        anewblock.classList.add('hide');
+      }
     }
     
     else if(anewblock.classList.contains('completado')){
@@ -171,6 +190,9 @@ window.addEventListener('keyup', function(e){
       anewblock.classList.add('activo');
       console.log('activo:' +anewblock.classList.contains('activo'));
       console.log('completado:' +anewblock.classList.contains('completado'));
+      if(allactivo!=1){
+        anewblock.classList.add('hide');
+      }
     }     
          
   }
