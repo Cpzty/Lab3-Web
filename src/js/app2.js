@@ -42,7 +42,9 @@ const input = document.createElement('input');
 const submit = document.createElement('button');
 const mybloque = document.createElement('div');
 mybloque.innerHTML = "<id ='hola'/>"
+
 let allactivo =1;
+let completado =0;
 
 const state = {
   tarea:['completado','activo']
@@ -83,6 +85,9 @@ const render = ({tarea}) =>{
         const anewblock = mybloque.cloneNode(true);
         anewblock.innerHTML = document.getElementsByClassName('input')[0].value;
         root.appendChild(anewblock);
+        if(completado==1){
+          anewblock.classList.add('hide');
+        }
         input.value = '';
       
        anewblock.onclick = () => {
@@ -94,6 +99,7 @@ const render = ({tarea}) =>{
        if(allactivo!=1){
         anewblock.classList.add('hide');
       }
+      
     }
     
     else if(anewblock.classList.contains('completado')){
@@ -139,6 +145,7 @@ for(let i =0; i<allblocks.length; i++){
   
 completedbtn.onclick = () => {
   allactivo=0;
+  completado=1;
   for(let i =0; i<allblocks.length; i++){
     if(allblocks[i].classList.contains('activo')){
      allblocks[i].classList.add('hide');
@@ -152,11 +159,13 @@ alltaskbtn.onclick = () => {
   for(let i =0; i<allblocks.length; i++){
    allblocks[i].classList.remove('hide');
    allactivo =1;
+    completado=0;
   }
 };
 
 activebtn.onclick = () => {
   allactivo=0;
+  completado=0;
   for(let i =0; i<allblocks.length; i++){
     if(allblocks[i].classList.contains('completado')){
      allblocks[i].classList.add('hide');
@@ -172,6 +181,9 @@ window.addEventListener('keyup', function(e){
         const anewblock = mybloque.cloneNode(true);
         anewblock.innerHTML = document.getElementsByClassName('input')[0].value;
         root.appendChild(anewblock);
+        if(completado==1){
+          anewblock.classList.add('hide');
+        }
         input.value = '';
      
      anewblock.onclick = () => {
