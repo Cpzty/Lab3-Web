@@ -1,12 +1,12 @@
 const block = document.createElement('div');
 block.className = "block";
-
+block.classList.add('activo');
 const block2 = document.createElement('div');
 block2.className = "block";
-
+block2.classList.add('completado');
 const block3 = document.createElement('div');
 block3.className = "block";
-
+block3.classList.add('activo');
 function initial(){
 const solicitud1 =fetch('https://raw.githubusercontent.com/samuelchvez/todos-fake-json-api/master/db.json');
 solicitud1
@@ -40,12 +40,17 @@ const completedbtn = document.createElement('button');
 const activebtn = document.createElement('button');
 const input = document.createElement('input');
 const submit = document.createElement('button');
+const mybloque = document.createElement('div');
+mybloque.innerHTML = "<id ='hola'/>"
 
 const state = {
   tarea:['completado','activo']
 };
 
 const render = ({tarea}) =>{
+  //no puede ser constante
+  let allblocks =  document.getElementsByClassName('block');
+
   root.prepend(bloquebotones);
   //innerHTML
   alltaskbtn.innerHTML = "TODOS";
@@ -60,6 +65,9 @@ const render = ({tarea}) =>{
   activebtn.className = "alltaskbtnmimic";
   input.className = "input";
   submit.className = "submit";
+  mybloque.className = "block";
+  
+  mybloque.classList.add('activo');
   //append
   bloquebotones.appendChild(alltaskbtn);
   bloquebotones.appendChild(completedbtn);
@@ -67,15 +75,77 @@ const render = ({tarea}) =>{
   root.appendChild(input);
   root.appendChild(submit);
   
+ 
   //bloque
   submit.onclick = () => {
     if(document.getElementsByClassName('input')[0].value != ''){
-        const mybloque = document.createElement('div');
-        mybloque.className = "block";
-        mybloque.innerHTML = document.getElementsByClassName('input')[0].value;
-        root.appendChild(mybloque);
+        const anewblock = mybloque.cloneNode(true);
+        anewblock.innerHTML = document.getElementsByClassName('input')[0].value;
+        root.appendChild(anewblock);
+      
+       anewblock.onclick = () => {
+    if(anewblock.classList.contains('activo')){
+      anewblock.classList.remove('activo');
+      anewblock.classList.add('completado');
+      console.log('activo:' +anewblock.classList.contains('activo'));
+      console.log('completado:' +anewblock.classList.contains('completado'));
+    }
+    
+    else if(anewblock.classList.contains('completado')){
+      anewblock.classList.remove('completado');
+      anewblock.classList.add('activo');
+      console.log('activo:' +anewblock.classList.contains('activo'));
+      console.log('completado:' +anewblock.classList.contains('completado'));
+    }     
+         
+  }
+        
     }
   };
+
+for(let i =0; i<allblocks.length; i++){
+  allblocks[i].onclick = () =>{
+    if(allblocks[i].classList.contains('completado')){
+      allblocks[i].classList.remove('completado');
+      allblocks[i].classList.add('activo');
+      console.log('activo:' +allblocks[i].classList.contains('activo'));
+      console.log('completado:' +allblocks[i].classList.contains('completado'));
+    }
+    else if(allblocks[i].classList.contains('activo')){
+      allblocks[i].classList.remove('activo');
+      allblocks[i].classList.add('completado');
+      console.log('activo:' +allblocks[i].classList.contains('activo'));
+      console.log('completado:' +allblocks[i].classList.contains('completado'));
+    }
+    
+  }
+};
+  
+completedbtn.onclick = () => {
+  for(let i =0; i<allblocks.length; i++){
+    if(allblocks[i].classList.contains('activo')){
+     allblocks[i].classList.add('hide');
+    }else{
+      allblocks[i].classList.remove('hide');
+    }
+  }
+};
+
+alltaskbtn.onclick = () => {
+  for(let i =0; i<allblocks.length; i++){
+   allblocks[i].classList.remove('hide');
+  }
+};
+
+activebtn.onclick = () => {
+  for(let i =0; i<allblocks.length; i++){
+    if(allblocks[i].classList.contains('completado')){
+     allblocks[i].classList.add('hide');
+    }else{
+      allblocks[i].classList.remove('hide');
+    }
+  }
+};  
   
 }
 
