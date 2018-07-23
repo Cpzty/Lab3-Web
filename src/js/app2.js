@@ -82,6 +82,7 @@ const render = ({tarea}) =>{
         const anewblock = mybloque.cloneNode(true);
         anewblock.innerHTML = document.getElementsByClassName('input')[0].value;
         root.appendChild(anewblock);
+        input.value = '';
       
        anewblock.onclick = () => {
     if(anewblock.classList.contains('activo')){
@@ -100,7 +101,9 @@ const render = ({tarea}) =>{
          
   }
         
-    }
+    }else{
+  window.alert('no hay texto');
+}
   };
 
 for(let i =0; i<allblocks.length; i++){
@@ -145,7 +148,39 @@ activebtn.onclick = () => {
       allblocks[i].classList.remove('hide');
     }
   }
-};  
+};
+  
+window.addEventListener('keyup', function(e){
+  if(e.keyCode == 13){
+   if(document.getElementsByClassName('input')[0].value != ''){
+        const anewblock = mybloque.cloneNode(true);
+        anewblock.innerHTML = document.getElementsByClassName('input')[0].value;
+        root.appendChild(anewblock);
+        input.value = '';
+     
+     anewblock.onclick = () => {
+    if(anewblock.classList.contains('activo')){
+      anewblock.classList.remove('activo');
+      anewblock.classList.add('completado');
+      console.log('activo:' +anewblock.classList.contains('activo'));
+      console.log('completado:' +anewblock.classList.contains('completado'));
+    }
+    
+    else if(anewblock.classList.contains('completado')){
+      anewblock.classList.remove('completado');
+      anewblock.classList.add('activo');
+      console.log('activo:' +anewblock.classList.contains('activo'));
+      console.log('completado:' +anewblock.classList.contains('completado'));
+    }     
+         
+  }
+
+}else{
+  window.alert('no hay texto');
+}
+    
+  }                      
+  });  
   
 }
 
